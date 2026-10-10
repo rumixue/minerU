@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MinerU 4.0（中文版）</title>
+<style>
+  body {
+    font-family: "Microsoft YaHei", "PingFang SC", "Segoe UI", sans-serif;
+    background: #f6f7f9;
+    color: #24292f;
+    margin: 0;
+    line-height: 1.75;
+  }
+  .container {
+    max-width: 860px;
+    margin: 40px auto;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    padding: 48px 56px;
+  }
+  h1 {
+    font-size: 2em;
+    border-bottom: 2px solid #d0d7de;
+    padding-bottom: 0.4em;
+    color: #1f2328;
+  }
+  h2 {
+    font-size: 1.35em;
+    margin-top: 2em;
+    color: #1f6feb;
+  }
+  ul, ol { padding-left: 1.6em; }
+  li { margin: 0.35em 0; }
+  strong { color: #1f2328; }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 1em 0;
+    font-size: 0.95em;
+  }
+  th, td {
+    border: 1px solid #d0d7de;
+    padding: 8px 12px;
+    text-align: left;
+  }
+  th { background: #f0f3f6; font-weight: 600; }
+  tr:nth-child(even) td { background: #fafbfc; }
+  blockquote {
+    margin: 1.2em 0;
+    padding: 12px 18px;
+    border-left: 4px solid #1f6feb;
+    background: #f0f6ff;
+    border-radius: 4px;
+    color: #444c56;
+  }
+  code { background: #eff1f3; padding: 2px 6px; border-radius: 4px; font-size: 0.9em; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1>MinerU 4.0</h1>
+
+<p>MinerU 4.0 将文档解析、本地文档库和服务工具整合到同一工作流中，可用于文档转换、应用集成以及智能体（Agent）阅读。</p>
+
+<h2>四级解析</h2>
+<ul>
+  <li><strong>Flash（极速）</strong> — 适用于快速预览和索引</li>
+  <li><strong>Basic（基础）</strong> — 适用于 OCR 和基于模型的解析</li>
+  <li><strong>Standard / Advanced（标准 / 高级）</strong> — 适用于更复杂的版面和更高的质量要求</li>
+</ul>
+
+<h2>多种输入格式</h2>
+<p>PDF、图片、DOC/DOCX、PPT/PPTX、XLS/XLSX、RTF、ODT/ODS/ODP、EPUB、OFD、HTML/MHTML 以及 CSV/TSV。DocVortex 提供原生文档解析。</p>
+
+<h2>文档库与智能体阅读</h2>
+<ul>
+  <li>发现文件</li>
+  <li>缓存结果</li>
+  <li>搜索内容</li>
+  <li>按页或按块继续阅读</li>
+  <li>保留稳定的引用定位符</li>
+</ul>
+
+<h2>独立的模型配置</h2>
+<ul>
+  <li><strong>小模型：</strong> ONNX 或 Torch</li>
+  <li><strong>VLM（视觉语言模型）：</strong> llama.cpp、vLLM 或 LMDeploy</li>
+</ul>
+
+<h2>统一的工具</h2>
+<ul>
+  <li>Python SDK</li>
+  <li>V1 API</li>
+  <li>无状态批量转换</li>
+  <li>多服务路由器（Router）</li>
+  <li>基于 Gradio 的 WebUI</li>
+</ul>
+
+<h2>结构化结果与渲染</h2>
+<p>单一文档模型支持<strong>九种渲染目标</strong>：</p>
+<ol>
+  <li>Markdown</li>
+  <li>HTML</li>
+  <li>LaTeX</li>
+  <li>DOCX</li>
+  <li>EPUB</li>
+  <li>PDF</li>
+  <li>结构化内容（Structured Content）</li>
+  <li>内容列表 V1（Content List V1）</li>
+  <li>内容列表 V2（Content List V2）</li>
+</ol>
+<p>每个 CLI/API 均提供各自支持的部分导出格式；详见"输出格式"与"结果契约"。</p>
+
+<h2>格式支持与解析说明</h2>
+<table>
+  <thead>
+    <tr><th>格式</th><th>解析级别 / 方式</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>PDF 和图片</td><td>全部四级（Flash / Basic / Standard / Advanced）</td></tr>
+    <tr><td>Office 文档（DOC/DOCX、PPT/PPTX、XLS/XLSX）、RTF、ODT/ODS/ODP</td><td>本地 Flash 原生解析</td></tr>
+    <tr><td>EPUB、OFD</td><td>本地 Flash 原生解析</td></tr>
+    <tr><td>HTML/MHTML</td><td>本地 Flash 原生解析</td></tr>
+    <tr><td>CSV/TSV</td><td>本地 Flash 原生解析</td></tr>
+    <tr><td>纯文本</td><td>直接读取（不做解析）</td></tr>
+  </tbody>
+</table>
+
+<blockquote>文档不会自动上传至官方服务；远程解析需要显式配置。</blockquote>
+
+</div>
+</body>
+</html>
