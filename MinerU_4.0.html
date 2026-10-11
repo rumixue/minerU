@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MinerU 4.0 · 文档 / Document</title>
+<style>
+  :root {
+    --text: #1b1f3b;
+    --muted: #5c6280;
+    --glass: rgba(255,255,255,.55);
+    --glass-strong: rgba(255,255,255,.75);
+    --glass-border: rgba(255,255,255,.85);
+    --shadow: 0 8px 32px rgba(31,38,135,.12);
+    --violet: #7c3aed;
+    --blue: #2563eb;
+    --pink: #db2777;
+    --teal: #0d9488;
+    --amber: #d97706;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+    color: var(--text);
+    line-height: 1.7;
+    min-height: 100vh;
+    background: #eef1fb;
+    background-image:
+      radial-gradient(at 8% 12%, rgba(124,58,237,.22) 0px, transparent 55%),
+      radial-gradient(at 92% 8%, rgba(37,99,235,.20) 0px, transparent 50%),
+      radial-gradient(at 85% 88%, rgba(219,39,119,.16) 0px, transparent 50%),
+      radial-gradient(at 15% 85%, rgba(13,148,136,.16) 0px, transparent 50%);
+    background-attachment: fixed;
+    overflow-x: hidden;
+  }
+  /* 漂浮光斑 */
+  .blob { position: fixed; border-radius: 50%; filter: blur(80px); opacity: .45; z-index: -1; pointer-events: none; }
+  .blob-1 { width: 420px; height: 420px; background: #c4b5fd; top: -120px; left: -100px; animation: drift 18s ease-in-out infinite alternate; }
+  .blob-2 { width: 380px; height: 380px; background: #bfdbfe; top: 30%; right: -140px; animation: drift 22s ease-in-out infinite alternate-reverse; }
+  .blob-3 { width: 340px; height: 340px; background: #fbcfe8; bottom: -120px; left: 30%; animation: drift 26s ease-in-out infinite alternate; }
+  @keyframes drift {
+    from { transform: translate(0,0) scale(1); }
+    to   { transform: translate(60px,40px) scale(1.12); }
+  }
+
+  .container { max-width: 1080px; margin: 0 auto; padding: 28px 20px 70px; }
+
+  /* 顶部语言切换 */
+  .topbar { display: flex; justify-content: center; margin-bottom: 6px; }
+  .lang-switch {
+    display: inline-flex; gap: 4px; padding: 5px;
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 999px;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: var(--shadow);
+  }
+  .lang-switch button {
+    border: none; background: transparent; cursor: pointer;
+    padding: 7px 26px; border-radius: 999px;
+    font-size: 14.5px; font-weight: 600; color: var(--muted);
+    transition: all .25s ease;
+  }
+  .lang-switch button.active {
+    background: linear-gradient(135deg, var(--violet), var(--blue));
+    color: #fff;
+    box-shadow: 0 4px 14px rgba(124,58,237,.35);
+  }
+
+  .lang-section { display: none; }
+  .lang-section.active { display: block; animation: rise .45s ease; }
+  @keyframes rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+
+  /* Hero */
+  .hero { text-align: center; padding: 54px 10px 40px; }
+  .hero .logo-mark {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 7px 18px; border-radius: 999px;
+    background: var(--glass); border: 1px solid var(--glass-border);
+    backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+    font-size: 13.5px; font-weight: 600; color: var(--violet);
+    box-shadow: var(--shadow); margin-bottom: 22px;
+  }
+  .hero .logo-mark .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--violet), var(--pink));
+    box-shadow: 0 0 10px rgba(124,58,237,.8);
+  }
+  .hero h1 {
+    font-size: clamp(46px, 8vw, 76px);
+    font-weight: 800; letter-spacing: -1.5px; line-height: 1.1;
+    background: linear-gradient(120deg, #4c1d95 0%, var(--violet) 35%, var(--blue) 70%, var(--pink) 100%);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 18px;
+  }
+  .hero p.lead {
+    max-width: 640px; margin: 0 auto;
+    font-size: clamp(15.5px, 2.2vw, 18px); color: var(--muted);
+  }
+  /* 数据条 */
+  .stats { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; margin-top: 34px; }
+  .stat {
+    min-width: 150px; padding: 18px 26px; text-align: center;
+    background: var(--glass); border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+    box-shadow: var(--shadow);
+    transition: transform .25s ease;
+  }
+  .stat:hover { transform: translateY(-4px); }
+  .stat .num {
+    font-size: 34px; font-weight: 800; line-height: 1.2;
+    background: linear-gradient(135deg, var(--violet), var(--blue));
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .stat .label { font-size: 13px; color: var(--muted); font-weight: 500; margin-top: 4px; }
+
+  /* 区块标题 */
+  .sec-title { text-align: center; margin: 62px 0 30px; }
+  .sec-title .kicker {
+    display: inline-block; font-size: 12.5px; font-weight: 700;
+    letter-spacing: 2.5px; text-transform: uppercase;
+    color: var(--violet); margin-bottom: 10px;
+  }
+  .sec-title h2 { font-size: clamp(24px, 3.5vw, 32px); font-weight: 750; letter-spacing: -.5px; }
+  .sec-title .bar {
+    width: 56px; height: 5px; margin: 14px auto 0; border-radius: 3px;
+    background: linear-gradient(90deg, var(--violet), var(--pink));
+  }
+
+  /* 玻璃卡片 */
+  .glass {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+    box-shadow: var(--shadow);
+  }
+
+  /* 四档解析 */
+  .tiers { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 18px; }
+  .tier {
+    padding: 26px 24px; position: relative; overflow: hidden;
+    transition: transform .28s ease, box-shadow .28s ease;
+  }
+  .tier:hover { transform: translateY(-6px); box-shadow: 0 16px 42px rgba(31,38,135,.18); }
+  .tier::before {
+    content: ""; position: absolute; inset: 0 0 auto 0; height: 4px;
+    background: var(--tier-grad, linear-gradient(90deg, var(--violet), var(--blue)));
+  }
+  .tier .icon {
+    width: 46px; height: 46px; border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; margin-bottom: 14px; color: #fff;
+    background: var(--tier-grad, linear-gradient(135deg, var(--violet), var(--blue)));
+    box-shadow: 0 6px 16px var(--tier-shadow, rgba(124,58,237,.3));
+  }
+  .tier h3 { font-size: 18.5px; font-weight: 700; margin-bottom: 6px; }
+  .tier p { font-size: 14px; color: var(--muted); }
+  .t-flash  { --tier-grad: linear-gradient(135deg,#f59e0b,#f97316); --tier-shadow: rgba(245,158,11,.35); }
+  .t-basic  { --tier-grad: linear-gradient(135deg,#10b981,#0d9488); --tier-shadow: rgba(16,185,129,.35); }
+  .t-std    { --tier-grad: linear-gradient(135deg,#3b82f6,#2563eb); --tier-shadow: rgba(59,130,246,.35); }
+  .t-adv    { --tier-grad: linear-gradient(135deg,#8b5cf6,#6d28d9); --tier-shadow: rgba(139,92,246,.35); }
+
+  /* 功能网格 */
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px; }
+  .feature { padding: 26px 26px 22px; transition: transform .28s ease, box-shadow .28s ease; }
+  .feature:hover { transform: translateY(-5px); box-shadow: 0 16px 42px rgba(31,38,135,.18); }
+  .feature h3 { font-size: 17.5px; font-weight: 700; margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
+  .feature h3 .fi {
+    width: 34px; height: 34px; border-radius: 10px; flex: none;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 17px; color: #fff;
+    background: var(--fi-grad, linear-gradient(135deg, var(--violet), var(--blue)));
+    box-shadow: 0 4px 12px var(--fi-shadow, rgba(124,58,237,.3));
+  }
+  .feature ul { list-style: none; margin: 0; }
+  .feature li {
+    position: relative; padding: 5px 0 5px 26px;
+    font-size: 14.5px; color: #3b415e;
+  }
+  .feature li::before {
+    content: ""; position: absolute; left: 2px; top: 13px;
+    width: 9px; height: 9px; border-radius: 3px;
+    background: var(--fi-grad, linear-gradient(135deg, var(--violet), var(--blue)));
+    opacity: .85;
+  }
+  .f-purple { --fi-grad: linear-gradient(135deg,#8b5cf6,#6d28d9); --fi-shadow: rgba(139,92,246,.3); }
+  .f-blue   { --fi-grad: linear-gradient(135deg,#3b82f6,#1d4ed8); --fi-shadow: rgba(59,130,246,.3); }
+  .f-pink   { --fi-grad: linear-gradient(135deg,#ec4899,#db2777); --fi-shadow: rgba(236,72,153,.3); }
+  .f-teal   { --fi-grad: linear-gradient(135deg,#14b8a6,#0d9488); --fi-shadow: rgba(20,184,166,.3); }
+  .f-amber  { --fi-grad: linear-gradient(135deg,#f59e0b,#d97706); --fi-shadow: rgba(245,158,11,.3); }
+
+  /* 输入格式 chips */
+  .formats { padding: 30px 28px; }
+  .formats .chip {
+    display: inline-block; margin: 5px 6px 5px 0; padding: 7px 16px;
+    border-radius: 999px; font-size: 13.5px; font-weight: 600;
+    color: var(--blue); background: rgba(37,99,235,.09);
+    border: 1px solid rgba(37,99,235,.18);
+    transition: all .2s ease;
+  }
+  .formats .chip:hover { background: rgba(37,99,235,.16); transform: translateY(-2px); }
+  .formats .note { margin-top: 14px; font-size: 14px; color: var(--muted); }
+
+  /* 渲染目标 */
+  .render-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; }
+  .render-item {
+    display: flex; align-items: center; gap: 13px;
+    padding: 16px 18px; border-radius: 18px;
+    background: var(--glass); border: 1px solid var(--glass-border);
+    backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+    box-shadow: var(--shadow); transition: transform .25s ease;
+  }
+  .render-item:hover { transform: translateY(-4px) scale(1.02); }
+  .render-item .n {
+    width: 32px; height: 32px; flex: none; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 700; color: #fff;
+    background: linear-gradient(135deg, var(--violet), var(--pink));
+    box-shadow: 0 4px 12px rgba(124,58,237,.3);
+  }
+  .render-item span { font-size: 14.5px; font-weight: 600; }
+  .render-item small { display: block; font-size: 12px; color: var(--muted); font-weight: 400; }
+
+  /* 表格 */
+  .table-wrap { padding: 30px 28px; overflow-x: auto; }
+  table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 14.5px; }
+  th {
+    text-align: left; padding: 13px 16px;
+    font-size: 13px; letter-spacing: 1px; text-transform: uppercase;
+    color: var(--violet); border-bottom: 2px solid rgba(124,58,237,.25);
+    white-space: nowrap;
+  }
+  td { padding: 13px 16px; border-bottom: 1px solid rgba(27,31,59,.08); color: #3b415e; vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  tbody tr { transition: background .2s ease; }
+  tbody tr:hover { background: rgba(124,58,237,.05); }
+  td:first-child { font-weight: 600; color: var(--text); }
+  .pill {
+    display: inline-block; padding: 2px 12px; border-radius: 999px;
+    font-size: 12.5px; font-weight: 700; color: #fff;
+    background: linear-gradient(135deg, var(--violet), var(--blue));
+  }
+  .pill.soft { background: rgba(37,99,235,.1); color: var(--blue); }
+
+  /* 提示条 */
+  .callout {
+    display: flex; gap: 16px; align-items: flex-start;
+    padding: 24px 26px; margin-top: 26px;
+    background: linear-gradient(120deg, rgba(124,58,237,.10), rgba(37,99,235,.10));
+    border: 1px solid rgba(124,58,237,.22);
+    border-radius: 22px;
+    backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  }
+  .callout .ci {
+    width: 40px; height: 40px; flex: none; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 19px; color: #fff;
+    background: linear-gradient(135deg, var(--amber), var(--pink));
+    box-shadow: 0 5px 14px rgba(217,119,6,.35);
+  }
+  .callout p { font-size: 14.5px; color: #3b415e; padding-top: 7px; }
+  .callout strong { color: var(--text); }
+
+  footer {
+    text-align: center; margin-top: 60px;
+    font-size: 13px; color: var(--muted);
+  }
+  footer .fdot {
+    display: inline-block; width: 6px; height: 6px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--violet), var(--pink));
+    margin: 0 10px; vertical-align: middle;
+  }
+
+  @media (max-width: 640px) {
+    .stat { min-width: 118px; padding: 14px 16px; }
+    .stat .num { font-size: 27px; }
+  }
+</style>
+</head>
+<body>
+<div class="blob blob-1"></div>
+<div class="blob blob-2"></div>
+<div class="blob blob-3"></div>
+
+<div class="container">
+
+  <div class="topbar">
+    <div class="lang-switch">
+      <button id="btn-zh" class="active" onclick="switchLang('zh')">中文</button>
+      <button id="btn-fr" onclick="switchLang('fr')">Français</button>
+    </div>
+  </div>
+
+  <!-- ================= 中文版 ================= -->
+  <section id="sec-zh" class="lang-section active">
+
+    <header class="hero">
+      <div class="logo-mark"><span class="dot"></span>MinerU · 全新大版本</div>
+      <h1>MinerU 4.0</h1>
+      <p class="lead">将文档解析、本地文档库与服务工具整合为统一工作流，覆盖文档转换、应用集成与智能体阅读三大场景。</p>
+      <div class="stats">
+        <div class="stat"><div class="num">4</div><div class="label">解析档位</div></div>
+        <div class="stat"><div class="num">9</div><div class="label">渲染目标</div></div>
+        <div class="stat"><div class="num">12+</div><div class="label">输入格式</div></div>
+        <div class="stat"><div class="num">1</div><div class="label">统一工作流</div></div>
+      </div>
+    </header>
+
+    <div class="sec-title">
+      <span class="kicker">Parsing Tiers</span>
+      <h2>四档解析模式</h2>
+      <div class="bar"></div>
+    </div>
+    <div class="tiers">
+      <div class="glass tier t-flash">
+        <div class="icon">⚡</div>
+        <h3>Flash</h3>
+        <p>用于快速预览与索引，速度优先。</p>
+      </div>
+      <div class="glass tier t-basic">
+        <div class="icon">🔍</div>
+        <h3>Basic</h3>
+        <p>用于 OCR 与基于模型的解析。</p>
+      </div>
+      <div class="glass tier t-std">
+        <div class="icon">📐</div>
+        <h3>Standard</h3>
+        <p>面向更复杂的版面与更高的质量要求。</p>
+      </div>
+      <div class="glass tier t-adv">
+        <div class="icon">💎</div>
+        <h3>Advanced</h3>
+        <p>极致质量，应对最具挑战性的文档。</p>
+      </div>
+    </div>
+
+    <div class="sec-title">
+      <span class="kicker">Core Capabilities</span>
+      <h2>核心能力</h2>
+      <div class="bar"></div>
+    </div>
+    <div class="grid">
+      <div class="glass feature f-purple">
+        <h3><span class="fi">📚</span>文档库与智能体阅读</h3>
+        <ul>
+          <li>文件发现</li>
+          <li>结果缓存</li>
+          <li>内容检索</li>
+          <li>按页或按块续读</li>
+          <li>保留稳定的引用定位符</li>
+        </ul>
+      </div>
+      <div class="glass feature f-blue">
+        <h3><span class="fi">⚙️</span>独立的模型配置</h3>
+        <ul>
+          <li><strong>小模型：</strong>ONNX 或 Torch</li>
+          <li><strong>VLM（视觉语言模型）：</strong>llama.cpp、vLLM 或 LMDeploy</li>
+        </ul>
+      </div>
+      <div class="glass feature f-pink">
+        <h3><span class="fi">🧰</span>统一工具集</h3>
+        <ul>
+          <li>Python SDK</li>
+          <li>V1 API</li>
+          <li>无状态批量转换</li>
+          <li>多服务路由器（Multi-service Router）</li>
+          <li>基于 Gradio 的 WebUI</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="sec-title">
+      <span class="kicker">Input Formats</span>
+      <h2>多种输入格式</h2>
+      <div class="bar"></div>
+    </div>
+    <div class="glass formats">
+      <span class="chip">PDF</span>
+      <span class="chip">图片</span>
+      <span class="chip">DOC / DOCX</span>
+      <span class="chip">PPT / PPTX</span>
+      <span class="chip">XLS / XLSX</span>
+      <span class="chip">RTF</span>
+      <span class="chip">ODT / ODS / ODP</span>
+      <span class="chip">EPUB</span>
+      <span class="chip">OFD</span>
+      <span class="chip">HTML / MHTML</span>
+      <span class="chip">CSV / TSV</span>
+      <span class="chip">纯文本</span>
+      <p class="note">DocVortex 提供原生文档解析。</p>
+    </div>
+
+    <div class="sec-title">
+      <span class="kicker">Rendering</span>
+      <h2>九种渲染目标</h2>
+      <div class="bar"></div>
+    </div>
+    <div class="render-grid">
+      <div class="render-item"><span class="n">1</span><div><span>Markdown</span></div></div>
+      <div class="render-item"><span class="n">2</span><div><span>HTML</span></div></div>
+      <div class="render-item"><span class="n">3</span><div><span>LaTeX</span></div></div>
+      <div class="render-item"><span class="n">4</span><div><span>DOCX</span></div></div>
+      <div class="render-item"><span class="n">5</span><div><span>EPUB</span></div></div>
+      <div class="render-item"><span class="n">6</span><div><span>PDF</span></div></div>
+      <div class="render-item"><span class="n">7</span><div><span>结构化内容<small>Structured Content</small></span></div></div>
+      <div class="render-item"><span class="n">8</span><div><span>内容列表 V1<small>Content List V1</small></span></div></div>
+      <div class="render-item"><span class="n">9</span><div><span>内容列表 V2<small>Content List V2</small></span></div></div>
+    </div>
+    <p style="text-align:center; color:var(--muted); font-size:14px; margin-top:16px;">各 CLI / API 各自暴露其支持的导出子集，详见「输出格式」与「结果契约」。</p>
+
+    <div class="sec-title">
+      <span class="kicker">Compatibility</span>
+      <h2>格式支持与解析说明</h2>
+      <div class="bar"></div>
+    </div>
+    <div class="glass table-wrap">
+      <table>
+        <thead><tr><th>格式</th><th>解析档位 / 方法</th></tr></thead>
+        <tbody>
+          <tr><td>PDF 与图片</td><td><span class="pill">四档皆可</span>&nbsp; Flash / Basic / Standard / Advanced</td></tr>
+          <tr><td>Office（DOC/DOCX、PPT/PPTX、XLS/XLSX）、RTF、ODT/ODS/ODP</td><td><span class="pill soft">本地 Flash</span> 原生解析</td></tr>
+          <tr><td>EPUB、OFD</td><td><span class="pill soft">本地 Flash</span> 原生解析</td></tr>
+          <tr><td>HTML / MHTML</td><td><span class="pill soft">本地 Flash</span> 原生解析</td></tr>
+          <tr><td>CSV / TSV</td><td><span class="pill soft">本地 Flash</span> 原生解析</td></tr>
+          <tr><td>纯文本</td><td>直接读取（不做解析）</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout">
+      <div class="ci">🔒</div>
+      <p><strong>隐私提示：</strong>文档不会自动上传至官方服务；远程解析需要显式配置。</p>
+    </div>
+
+  </section>
+
+  <!-- ================= Français ================= -->
+  <section id="sec-fr" class="lang-section">
+
+    <header class="hero">
+      <div class="logo-mark"><span class="dot"></span>MinerU · Nouvelle version majeure</div>
+      <h1>MinerU 4.0</h1>
+      <p class="lead">L'analyse de documents, une bibliothèque locale et des outils de service réunis dans un flux de travail unique — pour la conversion de documents, l'intégration d'applications et la lecture par agents.</p>
+      <div class="stats">
+        <div class="stat"><div class="num">4</div><div class="label">niveaux d'analyse</div></div>
+        <div class="stat"><div class="num">9</div><div class="label">cibles de rendu</div></div>
+        <div class="stat"><div class="num">12+</div><div class="label">formats d'entrée</div></div>
+        <div class="stat"><div class="num">1</div><div class="label">flux unifié</div></div>
+      </div>
+    </header>
+
+    <div class="sec-title">
+      <span class="kicker">Niveaux d'analyse</span>
+      <h2>Quatre niveaux d'analyse</h2>
+      <div class="bar"></div>
+    </div>
+    <div class="tiers">
+      <div class="glass tier t-flash">
+        <div class="icon">⚡</div>
+        <h3>Flash</h3>
+        <p>Pour des aperçus rapides et l'indexation.</p>
+      </div>
+      <div class="glass tier t-basic">
+        <div class="icon">🔍</div>
+        <h3>Basic</h3>
+        <p>Pour l'OCR et l'analyse basée sur des modèles.</p>
+      </div>
+      <div class="glass tier t-std">
+        <div class="icon">📐</div>
+        <h3>Standard</h3>
+        <p>Pour les mises en page plus exigeantes.</p>
+      </div>
+      <div class="glass tier t-adv">
+        <div class="icon">💎</div>
+        <h3>Advanced</h3>
+        <p>Qualité maximale pour les documents les plus difficiles.</p>
+      </div>
+    </div>
+
+    <div class="sec-title">
+      <span class="kicker">Capacités clés</span>
+      <h2>Capacités clés</h2>
+      <div class="bar"></div>
+    </div>
+    <div class="grid">
+      <div class="glass feature f-purple">
+        <h3><span class="fi">📚</span>Bibliothèque &amp; lecture par agents</h3>
+        <ul>
+          <li>Découverte des fichiers</li>
+          <li>Mise en cache des résultats</li>
+          <li>Recherche de contenu</li>
+          <li>Reprise page par page ou bloc par bloc</li>
+          <li>Conservation de localisateurs de citation stables</li>
+        </ul>
+      </div>
+      <div class="glass feature f-blue">
+        <h3><span class="fi">⚙️</span>Configuration des modèles</h3>
+        <ul>
+          <li><strong>Petits modèles :</strong> ONNX ou Torch</li>
+          <li><strong>VLM :</strong> llama.cpp, vLLM ou LMDeploy</li>
+        </ul>
+      </div>
+      <div class="glass feature f-pink">
+        <h3><span class="fi">🧰</span>Outils unifiés</h3>
+        <ul>
+          <li>SDK Python</li>
+          <li>API V1</li>
+          <li>Conversion par lots sans état</li>
+          <li>Routeur multi-services</li>
+          <li>WebUI basée sur Gradio</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="sec-title">
+      <span class="kicker">Formats d'entrée</span>
+      <h2>Multiples formats d'entrée</h2>
+      <div class="bar"></div>
+    </div>
+    <div class="glass formats">
+      <span class="chip">PDF</span>
+      <span class="chip">Images</span>
+      <span class="chip">DOC / DOCX</span>
+      <span class="chip">PPT / PPTX</span>
+      <span class="chip">XLS / XLSX</span>
+      <span class="chip">RTF</span>
+      <span class="chip">ODT / ODS / ODP</span>
+      <span class="chip">EPUB</span>
+      <span class="chip">OFD</span>
+      <span class="chip">HTML / MHTML</span>
+      <span class="chip">CSV / TSV</span>
+      <span class="chip">Texte brut</span>
+      <p class="note">DocVortex fournit une analyse native des documents.</p>
+    </div>
+
+    <div class="sec-title">
+      <span class="kicker">Rendu</span>
+      <h2>Neuf cibles de rendu</h2>
+      <div class="bar"></div>
+    </div>
+    <div class="render-grid">
+      <div class="render-item"><span class="n">1</span><div><span>Markdown</span></div></div>
+      <div class="render-item"><span class="n">2</span><div><span>HTML</span></div></div>
+      <div class="render-item"><span class="n">3</span><div><span>LaTeX</span></div></div>
+      <div class="render-item"><span class="n">4</span><div><span>DOCX</span></div></div>
+      <div class="render-item"><span class="n">5</span><div><span>EPUB</span></div></div>
+      <div class="render-item"><span class="n">6</span><div><span>PDF</span></div></div>
+      <div class="render-item"><span class="n">7</span><div><span>Contenu structuré<small>Structured Content</small></span></div></div>
+      <div class="render-item"><span class="n">8</span><div><span>Liste V1<small>Content List V1</small></span></div></div>
+      <div class="render-item"><span class="n">9</span><div><span>Liste V2<small>Content List V2</small></span></div></div>
+    </div>
+    <p style="text-align:center; color:var(--muted); font-size:14px; margin-top:16px;">Chaque CLI / API expose son propre sous-ensemble d'exportations ; voir « Formats de sortie » et « Contrat de résultats ».</p>
+
+    <div class="sec-title">
+      <span class="kicker">Compatibilité</span>
+      <h2>Prise en charge des formats</h2>
+      <div class="bar"></div>
+    </div>
+    <div class="glass table-wrap">
+      <table>
+        <thead><tr><th>Format</th><th>Niveau / méthode d'analyse</th></tr></thead>
+        <tbody>
+          <tr><td>PDF et images</td><td><span class="pill">4 niveaux</span>&nbsp; Flash / Basic / Standard / Advanced</td></tr>
+          <tr><td>Office (DOC/DOCX, PPT/PPTX, XLS/XLSX), RTF, ODT/ODS/ODP</td><td><span class="pill soft">Flash local</span> analyse native</td></tr>
+          <tr><td>EPUB, OFD</td><td><span class="pill soft">Flash local</span> analyse native</td></tr>
+          <tr><td>HTML / MHTML</td><td><span class="pill soft">Flash local</span> analyse native</td></tr>
+          <tr><td>CSV / TSV</td><td><span class="pill soft">Flash local</span> analyse native</td></tr>
+          <tr><td>Texte brut</td><td>Lecture directe (sans analyse)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout">
+      <div class="ci">🔒</div>
+      <p><strong>Confidentialité :</strong> les documents ne sont pas automatiquement téléversés vers le service officiel ; l'analyse à distance nécessite une configuration explicite.</p>
+    </div>
+
+  </section>
+
+  <footer>MinerU 4.0<span class="fdot"></span>中文版<span class="fdot"></span>Version française</footer>
+</div>
+
+<script>
+function switchLang(lang) {
+  document.querySelectorAll('.lang-section').forEach(s => s.classList.remove('active'));
+  document.getElementById('sec-' + lang).classList.add('active');
+  document.getElementById('btn-zh').classList.toggle('active', lang === 'zh');
+  document.getElementById('btn-fr').classList.toggle('active', lang === 'fr');
+  document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'fr';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>
