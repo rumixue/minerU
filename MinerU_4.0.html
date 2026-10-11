@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MinerU 4.0 · 文档 / Document</title>
+<title>MinerU 4.0 · 中文 / English / Français</title>
 <style>
   :root {
     --text: #1b1f3b;
@@ -34,7 +34,6 @@
     background-attachment: fixed;
     overflow-x: hidden;
   }
-  /* 漂浮光斑 */
   .blob { position: fixed; border-radius: 50%; filter: blur(80px); opacity: .45; z-index: -1; pointer-events: none; }
   .blob-1 { width: 420px; height: 420px; background: #c4b5fd; top: -120px; left: -100px; animation: drift 18s ease-in-out infinite alternate; }
   .blob-2 { width: 380px; height: 380px; background: #bfdbfe; top: 30%; right: -140px; animation: drift 22s ease-in-out infinite alternate-reverse; }
@@ -46,7 +45,6 @@
 
   .container { max-width: 1080px; margin: 0 auto; padding: 28px 20px 70px; }
 
-  /* 顶部语言切换 */
   .topbar { display: flex; justify-content: center; margin-bottom: 6px; }
   .lang-switch {
     display: inline-flex; gap: 4px; padding: 5px;
@@ -59,7 +57,7 @@
   }
   .lang-switch button {
     border: none; background: transparent; cursor: pointer;
-    padding: 7px 26px; border-radius: 999px;
+    padding: 7px 24px; border-radius: 999px;
     font-size: 14.5px; font-weight: 600; color: var(--muted);
     transition: all .25s ease;
   }
@@ -73,7 +71,6 @@
   .lang-section.active { display: block; animation: rise .45s ease; }
   @keyframes rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
 
-  /* Hero */
   .hero { text-align: center; padding: 54px 10px 40px; }
   .hero .logo-mark {
     display: inline-flex; align-items: center; gap: 10px;
@@ -100,7 +97,6 @@
     max-width: 640px; margin: 0 auto;
     font-size: clamp(15.5px, 2.2vw, 18px); color: var(--muted);
   }
-  /* 数据条 */
   .stats { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; margin-top: 34px; }
   .stat {
     min-width: 150px; padding: 18px 26px; text-align: center;
@@ -118,7 +114,6 @@
   }
   .stat .label { font-size: 13px; color: var(--muted); font-weight: 500; margin-top: 4px; }
 
-  /* 区块标题 */
   .sec-title { text-align: center; margin: 62px 0 30px; }
   .sec-title .kicker {
     display: inline-block; font-size: 12.5px; font-weight: 700;
@@ -131,7 +126,6 @@
     background: linear-gradient(90deg, var(--violet), var(--pink));
   }
 
-  /* 玻璃卡片 */
   .glass {
     background: var(--glass);
     border: 1px solid var(--glass-border);
@@ -140,7 +134,6 @@
     box-shadow: var(--shadow);
   }
 
-  /* 四档解析 */
   .tiers { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 18px; }
   .tier {
     padding: 26px 24px; position: relative; overflow: hidden;
@@ -165,7 +158,6 @@
   .t-std    { --tier-grad: linear-gradient(135deg,#3b82f6,#2563eb); --tier-shadow: rgba(59,130,246,.35); }
   .t-adv    { --tier-grad: linear-gradient(135deg,#8b5cf6,#6d28d9); --tier-shadow: rgba(139,92,246,.35); }
 
-  /* 功能网格 */
   .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px; }
   .feature { padding: 26px 26px 22px; transition: transform .28s ease, box-shadow .28s ease; }
   .feature:hover { transform: translateY(-5px); box-shadow: 0 16px 42px rgba(31,38,135,.18); }
@@ -191,10 +183,7 @@
   .f-purple { --fi-grad: linear-gradient(135deg,#8b5cf6,#6d28d9); --fi-shadow: rgba(139,92,246,.3); }
   .f-blue   { --fi-grad: linear-gradient(135deg,#3b82f6,#1d4ed8); --fi-shadow: rgba(59,130,246,.3); }
   .f-pink   { --fi-grad: linear-gradient(135deg,#ec4899,#db2777); --fi-shadow: rgba(236,72,153,.3); }
-  .f-teal   { --fi-grad: linear-gradient(135deg,#14b8a6,#0d9488); --fi-shadow: rgba(20,184,166,.3); }
-  .f-amber  { --fi-grad: linear-gradient(135deg,#f59e0b,#d97706); --fi-shadow: rgba(245,158,11,.3); }
 
-  /* 输入格式 chips */
   .formats { padding: 30px 28px; }
   .formats .chip {
     display: inline-block; margin: 5px 6px 5px 0; padding: 7px 16px;
@@ -206,7 +195,6 @@
   .formats .chip:hover { background: rgba(37,99,235,.16); transform: translateY(-2px); }
   .formats .note { margin-top: 14px; font-size: 14px; color: var(--muted); }
 
-  /* 渲染目标 */
   .render-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; }
   .render-item {
     display: flex; align-items: center; gap: 13px;
@@ -226,7 +214,6 @@
   .render-item span { font-size: 14.5px; font-weight: 600; }
   .render-item small { display: block; font-size: 12px; color: var(--muted); font-weight: 400; }
 
-  /* 表格 */
   .table-wrap { padding: 30px 28px; overflow-x: auto; }
   table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 14.5px; }
   th {
@@ -247,7 +234,6 @@
   }
   .pill.soft { background: rgba(37,99,235,.1); color: var(--blue); }
 
-  /* 提示条 */
   .callout {
     display: flex; gap: 16px; align-items: flex-start;
     padding: 24px 26px; margin-top: 26px;
@@ -279,6 +265,7 @@
   @media (max-width: 640px) {
     .stat { min-width: 118px; padding: 14px 16px; }
     .stat .num { font-size: 27px; }
+    .lang-switch button { padding: 7px 16px; font-size: 13.5px; }
   }
 </style>
 </head>
@@ -292,6 +279,7 @@
   <div class="topbar">
     <div class="lang-switch">
       <button id="btn-zh" class="active" onclick="switchLang('zh')">中文</button>
+      <button id="btn-en" onclick="switchLang('en')">English</button>
       <button id="btn-fr" onclick="switchLang('fr')">Français</button>
     </div>
   </div>
@@ -439,6 +427,149 @@
 
   </section>
 
+  <!-- ================= English ================= -->
+  <section id="sec-en" class="lang-section">
+
+    <header class="hero">
+      <div class="logo-mark"><span class="dot"></span>MinerU · Major Release</div>
+      <h1>MinerU 4.0</h1>
+      <p class="lead">Document parsing, a local document library, and service tools brought together in one workflow — for document conversion, application integration, and agent reading.</p>
+      <div class="stats">
+        <div class="stat"><div class="num">4</div><div class="label">parsing tiers</div></div>
+        <div class="stat"><div class="num">9</div><div class="label">rendering targets</div></div>
+        <div class="stat"><div class="num">12+</div><div class="label">input formats</div></div>
+        <div class="stat"><div class="num">1</div><div class="label">unified workflow</div></div>
+      </div>
+    </header>
+
+    <div class="sec-title">
+      <span class="kicker">Parsing Tiers</span>
+      <h2>Four Parsing Tiers</h2>
+      <div class="bar"></div>
+    </div>
+    <div class="tiers">
+      <div class="glass tier t-flash">
+        <div class="icon">⚡</div>
+        <h3>Flash</h3>
+        <p>For fast previews and indexing.</p>
+      </div>
+      <div class="glass tier t-basic">
+        <div class="icon">🔍</div>
+        <h3>Basic</h3>
+        <p>For OCR and model-based parsing.</p>
+      </div>
+      <div class="glass tier t-std">
+        <div class="icon">📐</div>
+        <h3>Standard</h3>
+        <p>For more demanding layouts.</p>
+      </div>
+      <div class="glass tier t-adv">
+        <div class="icon">💎</div>
+        <h3>Advanced</h3>
+        <p>Top quality for the most challenging documents.</p>
+      </div>
+    </div>
+
+    <div class="sec-title">
+      <span class="kicker">Core Capabilities</span>
+      <h2>Core Capabilities</h2>
+      <div class="bar"></div>
+    </div>
+    <div class="grid">
+      <div class="glass feature f-purple">
+        <h3><span class="fi">📚</span>Document Library &amp; Agent Reading</h3>
+        <ul>
+          <li>Discover files</li>
+          <li>Cache results</li>
+          <li>Search content</li>
+          <li>Continue by page or block</li>
+          <li>Preserve stable citation locators</li>
+        </ul>
+      </div>
+      <div class="glass feature f-blue">
+        <h3><span class="fi">⚙️</span>Independent Model Configuration</h3>
+        <ul>
+          <li><strong>Small models:</strong> ONNX or Torch</li>
+          <li><strong>VLM:</strong> llama.cpp, vLLM, or LMDeploy</li>
+        </ul>
+      </div>
+      <div class="glass feature f-pink">
+        <h3><span class="fi">🧰</span>Unified Tools</h3>
+        <ul>
+          <li>Python SDK</li>
+          <li>V1 API</li>
+          <li>Stateless batch conversion</li>
+          <li>Multi-service Router</li>
+          <li>Gradio-based WebUI</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="sec-title">
+      <span class="kicker">Input Formats</span>
+      <h2>Multiple Input Formats</h2>
+      <div class="bar"></div>
+    </div>
+    <div class="glass formats">
+      <span class="chip">PDF</span>
+      <span class="chip">Images</span>
+      <span class="chip">DOC / DOCX</span>
+      <span class="chip">PPT / PPTX</span>
+      <span class="chip">XLS / XLSX</span>
+      <span class="chip">RTF</span>
+      <span class="chip">ODT / ODS / ODP</span>
+      <span class="chip">EPUB</span>
+      <span class="chip">OFD</span>
+      <span class="chip">HTML / MHTML</span>
+      <span class="chip">CSV / TSV</span>
+      <span class="chip">Plain text</span>
+      <p class="note">DocVortex provides native document parsing.</p>
+    </div>
+
+    <div class="sec-title">
+      <span class="kicker">Rendering</span>
+      <h2>Nine Rendering Targets</h2>
+      <div class="bar"></div>
+    </div>
+    <div class="render-grid">
+      <div class="render-item"><span class="n">1</span><div><span>Markdown</span></div></div>
+      <div class="render-item"><span class="n">2</span><div><span>HTML</span></div></div>
+      <div class="render-item"><span class="n">3</span><div><span>LaTeX</span></div></div>
+      <div class="render-item"><span class="n">4</span><div><span>DOCX</span></div></div>
+      <div class="render-item"><span class="n">5</span><div><span>EPUB</span></div></div>
+      <div class="render-item"><span class="n">6</span><div><span>PDF</span></div></div>
+      <div class="render-item"><span class="n">7</span><div><span>Structured Content</span></div></div>
+      <div class="render-item"><span class="n">8</span><div><span>Content List V1</span></div></div>
+      <div class="render-item"><span class="n">9</span><div><span>Content List V2</span></div></div>
+    </div>
+    <p style="text-align:center; color:var(--muted); font-size:14px; margin-top:16px;">Each CLI / API exposes its own subset of exports; see Output Formats and Result Contract.</p>
+
+    <div class="sec-title">
+      <span class="kicker">Compatibility</span>
+      <h2>Format Support and Parsing Notes</h2>
+      <div class="bar"></div>
+    </div>
+    <div class="glass table-wrap">
+      <table>
+        <thead><tr><th>Format</th><th>Parsing Tier / Method</th></tr></thead>
+        <tbody>
+          <tr><td>PDF and images</td><td><span class="pill">All four tiers</span>&nbsp; Flash / Basic / Standard / Advanced</td></tr>
+          <tr><td>Office (DOC/DOCX, PPT/PPTX, XLS/XLSX), RTF, ODT/ODS/ODP</td><td><span class="pill soft">Local Flash</span> native parsing</td></tr>
+          <tr><td>EPUB, OFD</td><td><span class="pill soft">Local Flash</span> native parsing</td></tr>
+          <tr><td>HTML / MHTML</td><td><span class="pill soft">Local Flash</span> native parsing</td></tr>
+          <tr><td>CSV / TSV</td><td><span class="pill soft">Local Flash</span> native parsing</td></tr>
+          <tr><td>Plain text</td><td>Read directly (not parsed)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout">
+      <div class="ci">🔒</div>
+      <p><strong>Privacy note:</strong> documents are not automatically uploaded to the official service; remote parsing requires explicit configuration.</p>
+    </div>
+
+  </section>
+
   <!-- ================= Français ================= -->
   <section id="sec-fr" class="lang-section">
 
@@ -582,16 +713,17 @@
 
   </section>
 
-  <footer>MinerU 4.0<span class="fdot"></span>中文版<span class="fdot"></span>Version française</footer>
+  <footer>MinerU 4.0<span class="fdot"></span>中文<span class="fdot"></span>English<span class="fdot"></span>Français</footer>
 </div>
 
 <script>
 function switchLang(lang) {
   document.querySelectorAll('.lang-section').forEach(s => s.classList.remove('active'));
   document.getElementById('sec-' + lang).classList.add('active');
-  document.getElementById('btn-zh').classList.toggle('active', lang === 'zh');
-  document.getElementById('btn-fr').classList.toggle('active', lang === 'fr');
-  document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'fr';
+  ['zh', 'en', 'fr'].forEach(l => {
+    document.getElementById('btn-' + l).classList.toggle('active', l === lang);
+  });
+  document.documentElement.lang = lang === 'zh' ? 'zh-CN' : lang;
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 </script>
